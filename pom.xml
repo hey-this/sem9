@@ -29,6 +29,7 @@
 	<properties>
 		<java.version>17</java.version>
 		<jackson-bom.version>2.18.8</jackson-bom.version>
+		<tomcat.version>10.1.60</tomcat.version>
 	</properties>
 
 	<dependencyManagement>
@@ -106,7 +107,7 @@
 		<dependency>
 			<groupId>com.itextpdf</groupId>
 			<artifactId>bouncy-castle-adapter</artifactId>
-			<version>9.7.0</version>
+			<version>9.8.0</version>
 		</dependency>
 	</dependencies>
 
