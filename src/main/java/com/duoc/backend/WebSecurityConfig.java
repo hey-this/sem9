@@ -9,6 +9,8 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.security.config.http.SessionCreationPolicy;
+
 
 @EnableWebSecurity()
 @Configuration
@@ -23,7 +25,7 @@ class WebSecurityConfig{
 
         http
                 .csrf((csrf) -> csrf
-                        .disable())
+                        .disable()).sessionManagement(s -> s.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests( authz -> authz
                         .requestMatchers(HttpMethod.POST, Constants.LOGIN_URL).permitAll()
                         .requestMatchers(HttpMethod.GET, Constants.LOGIN_URL).permitAll()

@@ -20,7 +20,7 @@ public class LoginController {
     private MyUserDetailsService userDetailsService;
 
     @PostMapping("login")
-    public String login(@RequestBody User loginRequest) {
+    public String login(@RequestBody LoginRequest loginRequest) {
 
         /**
         * En el ejemplo no se realiza la correcta validación del usuario
@@ -36,4 +36,5 @@ public class LoginController {
         return token;
     }
 
+    
 }

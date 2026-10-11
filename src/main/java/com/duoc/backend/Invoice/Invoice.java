@@ -26,6 +26,7 @@ public class Invoice {
     private List<Care> cares;
 
 
+    
     @ManyToMany
     @JoinTable(
         name = "invoice_medications",
@@ -36,6 +37,14 @@ public class Invoice {
 
 
     private Double totalCost;
+
+    public Invoice(Long id, String patientName, LocalDate date, List<Care> cares, List<Medication> medications) {
+        this.id = id;
+        this.patientName = patientName;
+        this.date = date;
+        this.cares = cares;
+        this.medications = medications;
+    }
 
     // Getters and Setters
     public Long getId() {
@@ -93,4 +102,8 @@ public class Invoice {
     public void setTotalCost(Double totalCost) {
         this.totalCost = totalCost;
     }
+
+    public Invoice() {
+    }
+    
 }

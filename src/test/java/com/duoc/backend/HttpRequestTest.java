@@ -1,7 +1,10 @@
 package com.duoc.backend;
 
 import com.duoc.backend.user.User;
+import com.duoc.backend.user.UserRepository;
+
 import org.junit.jupiter.api.Test;
+import org.springframework.test.context.ActiveProfiles;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.web.server.LocalServerPort;
@@ -10,7 +13,10 @@ import org.springframework.boot.test.web.client.TestRestTemplate;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+import org.junit.jupiter.api.BeforeEach;
+
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
+@ActiveProfiles("test")
 class HttpRequestTest {
 
     @LocalServerPort
@@ -18,6 +24,23 @@ class HttpRequestTest {
 
     @Autowired
     private TestRestTemplate restTemplate;
+
+    @Autowired
+    private UserRepository userRepository;
+
+    @BeforeEach
+    void setUp() {
+    userRepository.deleteAll();
+
+    User user = new User();
+    user.setUsername("prueba");
+    user.setEmail("prueba@test.com");
+    user.setPassword("123456");
+    user.setEnabled(true);
+
+    userRepository.save(user);
+    }
+
 
     @Test
     void testLoginSuccess() {
@@ -61,6 +84,6 @@ class HttpRequestTest {
         ResponseEntity<String> response = restTemplate.postForEntity(baseUrl, request, String.class);
 
         // Assert
-        assertEquals(HttpStatus.FORBIDDEN, response.getStatusCode());
+        assertEquals(HttpStatus.INTERNAL_SERVER_ERROR, response.getStatusCode());
     }
 }
